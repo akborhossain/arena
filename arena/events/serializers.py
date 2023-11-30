@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
-
+from .models import Event,EventRegistration
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -12,9 +12,14 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
-from .models import Event
+
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = ['url', 'name', 'description', 'location', 'event_time']
+        fields = ['id', 'title', 'description', 'location', 'event_time']
+        
+class RegisterSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model=EventRegistration
+        fields=['eid','registration_at','username']

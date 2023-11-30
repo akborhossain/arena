@@ -9,5 +9,4 @@ urlpatterns = [
     path('myevent/', MyEventListView.as_view(), name='myevent'),
     path('event/<int:event_id>/unregister/', EventUnregister.as_view(), name='unregister'),
     path('access-denied/', AccessDeniedView.as_view(), name='access_denied'),
-   
 ]

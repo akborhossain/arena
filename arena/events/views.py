@@ -147,7 +147,7 @@ from rest_framework import permissions, viewsets
 from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
 
 
-from .serializers import GroupSerializer, UserSerializer,EventSerializer
+from .serializers import GroupSerializer, UserSerializer,EventSerializer,RegisterSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -170,8 +170,17 @@ class GroupViewSet(viewsets.ModelViewSet):
 class EventCreateAPI(ListCreateAPIView):
     queryset=Event.objects.all()
     serializer_class=EventSerializer
+
 class EventRetriveUD(RetrieveUpdateDestroyAPIView):
     queryset=Event.objects.all()
     serializer_class=EventSerializer
+
+class RegisterCreateAPI(ListCreateAPIView):
+    queryset=EventRegistration.objects.all()
+    serializer_class=RegisterSerializer
+
+class RegisterRetriveUD(RetrieveUpdateDestroyAPIView):
+    queryset=EventRegistration.objects.all()
+    serializer_class=RegisterSerializer
 
 

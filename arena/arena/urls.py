@@ -30,6 +30,11 @@ urlpatterns = [
     path('', include('users.urls')),
     path('evt/',include('events.urls')),
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('eventapi/', views.EventCreateAPI.as_view(), name='eventapi'),
+    path('eventapi/<int:pk>/',views. EventRetriveUD.as_view()),
+    path('registerapi/', views.RegisterCreateAPI.as_view(), name='eventapi'),
+    path('registerapi/<int:pk>/',views.RegisterRetriveUD.as_view()),
+    
 
 ]
