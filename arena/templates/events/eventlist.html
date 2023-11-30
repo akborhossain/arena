@@ -23,7 +23,11 @@
       <td>{{ev.description}}</td>
       <td>{{ev.event_time}}</td>
       <td>
-        <a class="btn btn-warning btn-sm"> View</a>
+        <a href="{% url 'singleevent' ev.id %}" class="btn btn-warning btn-sm"> View</a>
+        <form action="{% url 'register' ev.id %}" method="POST" class="d-inline">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-danger" value="Register" >
+        </form>
       </td>
     </tr>
     {% endfor %}

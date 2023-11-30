@@ -8,9 +8,17 @@
   <p>Date: {{ event.event_time }}</p>
   <!-- Add more event details as needed -->
 
-  <form method="post" action="">
+  <form method="post" action="{% url 'register' event.id %}">
     {% csrf_token %}
     <input type="hidden" name="event_id" value="{{ event.id }}">
     <button type="submit" class="btn btn-warning btn-sm">Register</button>
   </form>
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
 {% endblock content %}
