@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Event</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h4>Create New Event</h4>
+<form action="" method="POST" novalidate> {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-grid gap-2 col-6 mx-auto"></div>
+    <input class="btn btn-primary" type="submit" value="submit">
+
+</form>
+</div>
+{% endblock content %}

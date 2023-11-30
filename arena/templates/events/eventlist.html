@@ -1,11 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event List</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h4>Event List</h4>
+<table class="table table-hover">
+{% if not events %}
+<h1>you don't have create event. </h1> 
+
+{% else %}
+  <thead>
+    <tr>
+      <th scope="col">SN</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">date</th>
+      <td scope="col"> Action</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ev in events %}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{ev.title}}</td>
+      <td>{{ev.description}}</td>
+      <td>{{ev.event_time}}</td>
+      <td>
+        <a class="btn btn-warning btn-sm"> View</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endif %}
+</table>
+
+{% endblock content %}
