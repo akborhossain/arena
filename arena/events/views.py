@@ -45,7 +45,12 @@ class EventDetailsView(View):
     @method_decorator(login_required(login_url='user_login'))
     def get(self, request, id):
         event = get_object_or_404(Event, id=id)
-        return render(request, self.template_name, {'event': event})
+        user = request.user
+        existing_registration = EventRegistration.objects.filter(eid=id, username=user)
+        btn=False
+        if existing_registration:
+            btn=True
+        return render(request, self.template_name, {'event': event, 'btn':btn})
 
     @method_decorator(login_required(login_url='user_login'))
     def post(self, request, id):
@@ -83,4 +88,52 @@ class EventRegister(View):
         # Optionally, you can add more logic here, such as sending confirmation emails, etc.
 
         messages.success(request, 'Successfully registered for the event!')
+        return redirect('singleevent', id=event_id)
+
+class MyEventListView(View):
+    template_name = 'events/eventlist.html'
+
+    @method_decorator(login_required(login_url='user_login'))
+    def get(self, request):
+        # Retrieve tasks for the currently logged-in user
+        event = Event.objects.filter(username=request.user)
+        
+        context = {
+            'events': event
+        }
+
+        return render(request, self.template_name, context)
+
+class EventUnregister(View):
+    @method_decorator(login_required(login_url='user_login'))
+    def get(self, request, event_id):
+        # Handle GET request, you can render a template if needed
+        user = request.user
+        event = get_object_or_404(Event, pk=event_id)
+        existing_registration = EventRegistration.objects.filter(eid=event_id, username=user)
+
+        if existing_registration.exists():
+            # User has registered for this event, let's remove the registration
+            existing_registration.delete()
+            messages.success(request, 'Successfully unregistered from the event.')
+        else:
+            # User is not registered for this event
+            messages.warning(request, 'You are not registered for this event.')
+        return redirect('singleevent', id=event_id)
+    def post(self, request, event_id):
+        # Handle POST request for event unregistration
+
+        # Check if the user has registered for the event
+        user = request.user
+        event = get_object_or_404(Event, pk=event_id)
+        existing_registration = EventRegistration.objects.filter(eid=event_id, username=user)
+
+        if existing_registration.exists():
+            # User has registered for this event, let's remove the registration
+            existing_registration.delete()
+            messages.success(request, 'Successfully unregistered from the event.')
+        else:
+            # User is not registered for this event
+            messages.warning(request, 'You are not registered for this event.')
+
         return redirect('singleevent', id=event_id)

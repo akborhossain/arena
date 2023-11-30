@@ -7,12 +7,19 @@
   <p>{{ event.description }}</p>
   <p>Date: {{ event.event_time }}</p>
   <!-- Add more event details as needed -->
-
+  {% if not btn %}
   <form method="post" action="{% url 'register' event.id %}">
     {% csrf_token %}
     <input type="hidden" name="event_id" value="{{ event.id }}">
     <button type="submit" class="btn btn-warning btn-sm">Register</button>
   </form>
+    {% else %}
+  <form method="post" action="{% url 'unregister' event.id %}">     {% csrf_token %}
+    <input type="hidden" name="event_id" value="{{ event.id }}">
+    <button type="submit" class="btn btn-warning btn-sm">Unregister</button>
+  </form>
+    {% endif %}
+
 
   {% if messages %}
   <ul class="messages">

@@ -19,10 +19,9 @@ class EventListView(View):
     @method_decorator(login_required(login_url='user_login'))
     def get(self, request):
         # Retrieve tasks for the currently logged-in user
-        event = Event.objects.filter(username=request.user)
-        
+        events = Event.objects.all()
         context = {
-            'events': event
+            'events': events
         }
 
         return render(request, self.template_name, context)
