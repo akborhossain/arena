@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import CreateTaskView,EventDetailsView, EventRegister,MyEventListView,EventUnregister
+from .views import CreateTaskView,EventDetailsView, EventRegister,MyEventListView,EventUnregister,AccessDeniedView
 
 urlpatterns = [
     path('create/',CreateTaskView.as_view(),name='create'),
@@ -8,6 +8,8 @@ urlpatterns = [
     path('event/<int:event_id>/register/', EventRegister.as_view(), name='register'),
     path('myevent/', MyEventListView.as_view(), name='myevent'),
     path('event/<int:event_id>/unregister/', EventUnregister.as_view(), name='unregister'),
+    path('access-denied/', AccessDeniedView.as_view(), name='access_denied'),
+
 
 
 

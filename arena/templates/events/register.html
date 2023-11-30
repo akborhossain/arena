@@ -1,9 +1,39 @@
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% extends 'base.html' %}
+{% block content %}
+<h4>Event List</h4>
+<table class="table table-hover">
+{% if not events %}
+<h1>you don't have any register event. </h1> 
+
+{% else %}
+  <thead>
+    <tr>
+      <th scope="col">SN</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">date</th>
+      <td scope="col"> Action</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ev in events %}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{ev.title}}</td>
+      <td>{{ev.description}}</td>
+      <td>{{ev.event_time}}</td>
+      <td>
+        <a href="{% url 'singleevent' ev.id %}" class="btn btn-warning btn-sm"> View</a>
+        <form action="{% url 'unregister' ev.id %}" method="POST" class="d-inline">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-danger" value="Unregister" >
+        </form>
+      </td>
+    </tr>
     {% endfor %}
-  </ul>
-{% endif %}
+  </tbody>
+  {% endif %}
+</table>
+<a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
 
-
+{% endblock content %}

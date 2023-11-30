@@ -5,7 +5,9 @@
     {{ form.as_p }}
     <div class="d-grid gap-2 col-6 mx-auto"></div>
     <input class="btn btn-primary" type="submit" value="submit">
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
 
 </form>
 </div>
+
 {% endblock content %}

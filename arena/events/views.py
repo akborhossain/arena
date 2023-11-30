@@ -8,8 +8,6 @@ from .forms import EventForm
 from .models import EventRegistration, Event
 
 # Create your views here.
-
-
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 
@@ -89,21 +87,22 @@ class EventRegister(View):
 
         messages.success(request, 'Successfully registered for the event!')
         return redirect('singleevent', id=event_id)
-
+    
 class MyEventListView(View):
-    template_name = 'events/eventlist.html'
+    template_name = 'events/register.html'
 
     @method_decorator(login_required(login_url='user_login'))
     def get(self, request):
-        # Retrieve tasks for the currently logged-in user
-        event = Event.objects.filter(username=request.user)
-        
+        # Retrieve events that the user has registered for
+        registered_events = EventRegistration.objects.filter(username=request.user).values_list('eid', flat=True)
+        events = Event.objects.filter(id__in=registered_events)
+
         context = {
-            'events': event
+            'events': events
         }
 
         return render(request, self.template_name, context)
-
+    
 class EventUnregister(View):
     @method_decorator(login_required(login_url='user_login'))
     def get(self, request, event_id):
@@ -137,3 +136,10 @@ class EventUnregister(View):
             messages.warning(request, 'You are not registered for this event.')
 
         return redirect('singleevent', id=event_id)
+class AccessDeniedView(View):
+    template_name = 'events/access_denied.html'  # Create an HTML template for the access denied page
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
