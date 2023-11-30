@@ -17,9 +17,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'title', 'description', 'location', 'event_time']
-        
+        fields = ['id', 'title', 'description', 'location', 'event_time','username']
+
 class RegisterSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=EventRegistration
-        fields=['eid','registration_at','username']
+        fields=['id','eid','registration_at','username']
