@@ -170,17 +170,23 @@ class GroupViewSet(viewsets.ModelViewSet):
 class EventCreateAPI(ListCreateAPIView):
     queryset=Event.objects.all()
     serializer_class=EventSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 class EventRetriveUD(RetrieveUpdateDestroyAPIView):
     queryset=Event.objects.all()
     serializer_class=EventSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 class RegisterCreateAPI(ListCreateAPIView):
     queryset=EventRegistration.objects.all()
     serializer_class=RegisterSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 class RegisterRetriveUD(RetrieveUpdateDestroyAPIView):
     queryset=EventRegistration.objects.all()
     serializer_class=RegisterSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
